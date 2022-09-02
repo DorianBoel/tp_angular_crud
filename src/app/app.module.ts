@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { ProductGetComponent } from './product-get/product-get.component';
+import { ProductService } from './product.service';
 
 @NgModule({
     declarations: [
@@ -18,10 +20,11 @@ import { ProductGetComponent } from './product-get/product-get.component';
     imports: [
         BrowserModule,
         AppRoutingModule,
+        HttpClientModule,
         ReactiveFormsModule,
         LoadingBarModule
     ],
-    providers: [],
+    providers: [ProductService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
