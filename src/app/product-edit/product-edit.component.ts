@@ -18,6 +18,14 @@ export class ProductEditComponent implements OnInit {
         this.createForm();
     }
 
+    ngOnInit(): void {
+        this.route.params.subscribe((params) => {
+            this.productService.editProduct(params['id']).subscribe((res) => {
+                this.product = res;
+            });
+        });
+    }
+
     createForm() {
         this.angForm = this.formBuilder.group({
             ProductName: ['', Validators.required ],
@@ -31,15 +39,6 @@ export class ProductEditComponent implements OnInit {
             this.productService.updateProduct(name, description, price, params.id).subscribe(
                 (data) => this.router.navigate(['products'])
             )
-        });
-    }
-
-
-    ngOnInit(): void {
-        this.route.params.subscribe((params) => {
-            this.productService.editProduct(params['id']).subscribe((res) => {
-                this.product = res;
-            });
         });
     }
 

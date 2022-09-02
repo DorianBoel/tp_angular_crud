@@ -31,7 +31,7 @@ export class ProductService {
         return this.http.get<Product>(`${this.uri}/${id}`);
     }
 
-    updateProduct(name: string, description: string, price: string, id: number) : Observable<Product> {
+    updateProduct(name: string, description: string, price: string, id: number): Observable<Product> {
         const obj = {
             id,
             name,
@@ -39,6 +39,11 @@ export class ProductService {
             price
         };
         return this.http.put<Product>(`${this.uri} /${id}`, obj);
+    }
+
+
+    deleteProduct(id: number): Observable<Product> {
+        return this.http.get<Product>(`${this.uri}/${id}`);
     }
 
 
