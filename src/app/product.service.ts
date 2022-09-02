@@ -22,10 +22,24 @@ export class ProductService {
             description,
             price
         };
-        console.log(obj);
         this.http.post(`${this.uri}`, obj).subscribe(
             (res) => console.log('Done')
         );
     }
+
+    editProduct(id: number): Observable<Product> {
+        return this.http.get<Product>(`${this.uri}/${id}`);
+    }
+
+    updateProduct(name: string, description: string, price: string, id: number) : Observable<Product> {
+        const obj = {
+            id,
+            name,
+            description,
+            price
+        };
+        return this.http.put<Product>(`${this.uri} /${id}`, obj);
+    }
+
 
 }
