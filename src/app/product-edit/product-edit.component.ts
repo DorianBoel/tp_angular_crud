@@ -20,7 +20,7 @@ export class ProductEditComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.subscribe((params) => {
-            this.productService.editProduct(params['id']).subscribe((res) => {
+            this.productService.getProduct(params['id']).subscribe((res) => {
                 this.product = res;
             });
         });

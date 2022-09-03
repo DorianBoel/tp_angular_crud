@@ -1,0 +1,10 @@
+{
+  "products": [
+    {
+      "name": "Mock #1",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum iusto beatae debitis dolore molestiae doloremque deleniti, maiores labore aspernatur! Est perspiciatis officiis facere reiciendis voluptatibus fugiat quisquam nisi autem magnam.",
+      "price": "5.5",
+      "id": 1
+    }
+  ]
+}

@@ -14,15 +14,16 @@ export class ProductGetComponent implements OnInit {
     constructor(private productService: ProductService) { }
 
     ngOnInit(): void {
-        this.productService.getAllProducts().subscribe((data: Product) => {
-            this.products.push(data);
+        this.productService.getAllProducts().subscribe((data: Product[]) => {
+            this.products = data;
         });
     }
 
-    deleteProduct(id: number) {
-        this.productService.deleteProduct(id).subscribe(
+    deleteProduct(product: Product) {
+        this.productService.deleteProduct(product.id).subscribe(
             (res) => {
-                this.products.splice(id, 1);
+                let idx = this.products.indexOf(product);
+                this.products.splice(idx, 1);
             }
         );
     }
