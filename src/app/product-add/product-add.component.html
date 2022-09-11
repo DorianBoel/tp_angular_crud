@@ -1,9 +1,16 @@
+
+<div *ngIf="alert.active" class="alert alert-success d-flex justify-content-between my-2" role="alert">
+    <div>
+        Product <a routerLink="/products" fragment="product-{{alert.productId}}" class="alert-link">'{{alert.productName}}'</a> added successfully
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="alert.active= false"></button>
+</div>
 <div class="card mt-2">
     <div class="card-body">
         <form [formGroup]="angForm" novalidate>
             <div class="form-group mb-3">
                 <label class="col-md-4">
-                    Product Name
+                    Product Name (100 char. max)
                 </label>
                 <input type="text" class="form-control" formControlName="ProductName" #ProductName />
             </div>
@@ -11,10 +18,13 @@
                 <div *ngIf="angForm.controls.ProductName.errors?.required">
                     Product Name is required.
                 </div>
+                <div *ngIf="angForm.controls.ProductName.errors?.maxlength">
+                    100 characters max
+                </div>
             </div>
             <div class="form-group mb-3">
                 <label class="col-md-4">
-                    Product Description
+                    Product Description (1000 char. max)
                 </label>
                 <textarea class="form-control" rows=7 cols="5" formControlName="ProductDescription" #ProductDescription></textarea>
             </div>
@@ -22,16 +32,22 @@
                 <div *ngIf="angForm.controls.ProductDescription.errors?.required">
                     Product Description is required.
                 </div>
+                <div *ngIf="angForm.controls.ProductDescription.errors?.maxlength">
+                    1000 characters max
+                </div>
             </div>
             <div class="form-group mb-3">
                 <label class="col-md-4">
                     Product Price
                 </label>
-                <input type="number" class="form-control" formControlName="ProductPrice" #ProductPrice />
+                <input type="number" class="form-control" step="0.25" formControlName="ProductPrice" #ProductPrice />
             </div>
             <div *ngIf="angForm.controls.ProductPrice.invalid && (angForm.controls.ProductPrice.dirty || angForm.controls.ProductPrice.touched)" class="alert alert-danger mt-3 mb-2">
                 <div *ngIf="angForm.controls.ProductPrice.errors?.required">
                     Product Price is required.
+                </div>
+                <div *ngIf="angForm.controls.ProductPrice.errors?.min">
+                    Product Price can't be negative.
                 </div>
             </div>
             <div class="form-group mt-3">

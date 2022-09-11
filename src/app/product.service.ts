@@ -11,10 +11,7 @@ export class ProductService {
 
     uri: string = `http://${env.jsonServer.host}:${env.jsonServer.port}/products`;
 
-    constructor(private http: HttpClient) {
-        console.log(this.uri);
-
-    }
+    constructor(private http: HttpClient) { }
 
     getAllProducts(): Observable<Product[]> {
         return this.http.get<Product[]>(`${this.uri}`);
@@ -24,19 +21,18 @@ export class ProductService {
         return this.http.get<Product>(`${this.uri}/${id}`);
     }
 
-    addProduct(name: string, description: string, price: string) {
+    addProduct(name: string, description: string, price: string): Observable<object> {
+        let response: string | null = null;
         const obj: Record<string, string> = {
             name,
             description,
             price
         };
-        this.http.post(`${this.uri}`, obj).subscribe(
-            (res) => console.log('Done')
-        );
+        return this.http.post(`${this.uri}`, obj);
     }
 
     updateProduct(name: string, description: string, price: string, id: number): Observable<Product> {
-        const obj = {
+        const obj: Product = {
             id,
             name,
             description,
