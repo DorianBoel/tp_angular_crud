@@ -12,7 +12,12 @@ import { ProductService } from '../product.service';
 export class ProductEditComponent implements OnInit {
 
     angForm!: FormGroup;
-    product: any = {};
+    product: Product = {
+        id: 0,
+        name: "",
+        description: "",
+        price: 0
+    };
 
     constructor(private formBuilder: FormBuilder, private productService: ProductService, private route: ActivatedRoute, private router: Router) {
         this.createForm();
@@ -21,23 +26,28 @@ export class ProductEditComponent implements OnInit {
     ngOnInit(): void {
         this.route.params.subscribe((params) => {
             this.productService.getProduct(params['id']).subscribe((res) => {
-                this.product = res;
+                this.product = res as Product;
             });
         });
     }
 
     createForm() {
         this.angForm = this.formBuilder.group({
-            ProductName: ['', Validators.required ],
-            ProductDescription: ['', Validators.required ],
-            ProductPrice: ['', Validators.required ]
+            ProductName: [this.product.name, Validators.maxLength(100)],
+            ProductDescription: [this.product.description, Validators.maxLength(1000)],
+            ProductPrice: [this.product.price, Validators.min(0)]
         });
     }
 
     updateProduct(name: string, description: string, price: string) {
         this.route.params.subscribe((params) => {
-            this.productService.updateProduct(name, description, price, params.id).subscribe(
-                (data) => this.router.navigate(['products'])
+            let nameValue: string = name.trim() || this.product.name;
+            let descriptionValue: string = description.trim() || this.product.description;
+            let priceValue: number = Number.parseFloat(price) || this.product.price;
+            this.productService.updateProduct(nameValue, descriptionValue, priceValue, params.id).subscribe(
+                (res) => {
+                    this.router.navigate(['products']);
+                }
             )
         });
     }

@@ -31,7 +31,7 @@ export class ProductService {
         return this.http.post(`${this.uri}`, obj);
     }
 
-    updateProduct(name: string, description: string, price: string, id: number): Observable<Product> {
+    updateProduct(name: string, description: string, price: number, id: number): Observable<Product> {
         const obj: Product = {
             id,
             name,

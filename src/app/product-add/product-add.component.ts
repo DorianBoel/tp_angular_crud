@@ -10,7 +10,7 @@ import { ProductService } from '../product.service';
 export class ProductAddComponent implements OnInit {
 
     angForm!: FormGroup;
-    alert = {
+    alert: any = {
         active: false,
         productName: "",
         productId: 0
@@ -36,7 +36,7 @@ export class ProductAddComponent implements OnInit {
                         Validators.maxLength(1000)
                     ]
                 )],
-            ProductPrice: [0, Validators.compose(
+            ProductPrice: ['', Validators.compose(
                 [
                     Validators.required,
                     Validators.min(0)
@@ -46,7 +46,7 @@ export class ProductAddComponent implements OnInit {
     }
 
     addProduct(name: string, description: string, price: string) {
-        this.productService.addProduct(name, description, price).subscribe(
+        this.productService.addProduct(name.trim(), description.trim(), price).subscribe(
             (res) => {
                 let response = res as Product;
                 this.alert.active = true;
